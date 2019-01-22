@@ -9,6 +9,7 @@ import com.google.gson.*;
 import communication.*;
 
 import pong.GameState;
+import pong.Paddle;
 
 /**
  * The Communicator thread is responsible for all the communication with the server.
@@ -25,7 +26,7 @@ public class Communicator extends Thread {
 	private final Socket socket;
 
 	private final String NAME;
-	private int clientId;
+	public static int clientId;
 	private volatile boolean inGame = false;
 
 	public Communicator(Store store, int port, InetAddress inetAddress, String name) throws IOException {
@@ -195,7 +196,9 @@ public class Communicator extends Thread {
 			String data;
 			while (true) {
 				if (inGame) {
-					data = store.getDesiredPaddleState().toString();
+					Paddle.State state = store.getDesiredPaddleState();
+					if(state == null) continue;
+					data = state.toString();
 					send(data + "\n");
 					try {
 						Thread.sleep(20);
@@ -215,7 +218,7 @@ public class Communicator extends Thread {
 		private boolean send(String data) {
 			try {
 				OUTPUT_STREAM.writeBytes(data);
-				System.out.println(String.format("[OUT]: %s", data)); // Debug
+				System.out.println(String.format("[OUT]: %s", data));
 				return true;
 			} catch (IOException e) {
 				e.printStackTrace();

@@ -1,8 +1,13 @@
-import pong.GameState;
-import pong.Paddle;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import pong.*;
 
 public class Bot implements Player {
+
+	private Paddle myPaddle(GameState gameState) {
+        for (Paddle paddle : gameState.getPaddles())
+            if (paddle.getPlayer() == Communicator.clientId)
+                return paddle;
+		throw new RuntimeException("Couldn't find player");
+	}
 
 	/**
 	 * Should return a {@link Paddle.State} in response to a {@link GameState} received by the server.
@@ -11,10 +16,10 @@ public class Bot implements Player {
 	 */
     @Override
     public Paddle.State play(GameState gameState) {
-        // Enter your bot logic here...
+		// Enter your bot logic here...
 
-        // Example...
-        return Paddle.State.MOVE_CLOCKWISE;
+		// Example...
+		return Paddle.State.MOVE_CLOCKWISE;
     }
 
 }

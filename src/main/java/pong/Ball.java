@@ -51,7 +51,7 @@ public class Ball {
 
 	@Override
 	public String toString() {
-		return super.toString(); //Todo
+		return super.toString();
 	}
 
 	@Override
