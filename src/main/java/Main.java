@@ -5,7 +5,7 @@ import java.net.UnknownHostException;
 
 public class Main {
 
-	private final static String     HOST    = "127.0.0.1";
+	private final static String     HOST    = "10.0.0.155";
 	private final static int        PORT    = 4242;
 	private final static String     NAME    = "itstud";
 	private final static Player     PLAYER  = new Bot();
